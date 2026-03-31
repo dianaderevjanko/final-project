@@ -8,13 +8,29 @@ import logic
 # Definējam atļautās kategorijas
 CATEGORIES = ["Ēdiens", "Transports", "Izklaide", "Māja", "Veselība", "Iepirkšanās", "Cits"]
 
+from datetime import datetime
+
+def is_valid_date(text):
+    """Pārbauda, vai teksts ir derīgs datums YYYY-MM-DD formātā."""
+    try:
+        datetime.strptime(text, "%Y-%m-%d")
+        return True
+    except ValueError:
+        return False
+    
 def add_expense(expenses):
     """Lietotāja ievade jaunam izdevumam."""
     print("\n--- Pievienot izdevumu ---")
     
     # 1. Datums (automātiski piedāvā šodienu)
-    today = date.today().strftime("%Y-%m-%d")
-    datums = input(f"Datums (YYYY-MM-DD) [{today}]: ") or today
+    while True:
+        today = date.today().strftime("%Y-%m-%d")
+        datums = input(f"Datums (YYYY-MM-DD) [{today}]: ") or today
+        
+        if is_valid_date(datums):
+            break
+        else:
+            print("❌ Nepareizs formāts! Lūdzu, izmanto GGGG-MM-DD (piem., 2026-03-31)")
     
     # 2. Kategorijas izvēle
     print("Kategorijas:")
