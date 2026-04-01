@@ -1,8 +1,44 @@
 [
   {
-    "date": "2026-01-01",
-    "amount": 20.0,
+    "date": "2026-01-30",
+    "amount": 154.0,
+    "category": "Māja",
+    "description": "jaunais divāns"
+  },
+  {
+    "date": "2026-02-15",
+    "amount": 350.0,
+    "category": "Veselība",
+    "description": "zobārsts"
+  },
+  {
+    "date": "2026-02-21",
+    "amount": 26.5,
+    "category": "Izklaide",
+    "description": "picerija, draugu satikšana"
+  },
+  {
+    "date": "2026-03-03",
+    "amount": 56.0,
     "category": "Iepirkšanās",
-    "description": "kafija"
+    "description": "produkti, saimniecības preces"
+  },
+  {
+    "date": "2026-03-29",
+    "amount": 24.0,
+    "category": "Cits",
+    "description": "senukai+Depo, puķes dobei"
+  },
+  {
+    "date": "2026-03-31",
+    "amount": 150.0,
+    "category": "Transports",
+    "description": "dīzelis"
+  },
+  {
+    "date": "2026-04-01",
+    "amount": 33.0,
+    "category": "Veselība",
+    "description": "vitamīni"
   }
 ]
