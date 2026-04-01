@@ -72,6 +72,9 @@ def list_expenses(expenses):
     if not expenses:
         print("\nSaraksts ir tukšs.")
         return
+    
+    # Sakārtojam datus pirms rādīšanas
+    expenses = logic.sort_expenses_by_date(expenses)
 
     print(f"\n{'Datums':<12} {'Summa':>10} {'Kategorija':<15} {'Apraksts'}")
     print("-" * 60)
@@ -89,6 +92,10 @@ def main():
         print("\n=== IZDEVUMU IZSEKOTĀJS ===")
         print("1) Pievienot izdevumu")
         print("2) Parādīt visus izdevumus")
+        print("3) Filtrēt pēc mēneša")     
+        print("4) Kopsavilkums pa kategorijām") 
+        print("5) Dzēst izdevumu")         
+        print("6) Eksportēt uz CSV")     
         print("7) Iziet")
         
         izvele = input("\nIzvēlies darbību (1-7): ")
@@ -97,11 +104,90 @@ def main():
             add_expense(expenses)
         elif izvele == "2":
             list_expenses(expenses)
+        elif izvele == "3":               
+            filter_menu(expenses)
+        elif izvele == "4":               
+            show_category_summary(expenses)
+        elif izvele == "5":               
+            delete_expense(expenses)
+        elif izvele == "6":               
+            export_menu(expenses)
         elif izvele == "7":
             print("Uz redzēšanos!")
             break
         else:
             print("❌ Nepareiza izvēle, mēģini vēlreiz.")
+
+def show_category_summary(expenses):
+    """Parāda kopsavilkumu pa kategorijām."""
+    if not expenses:
+        print("\nSaraksts ir tukšs.")
+        return
+
+    print("\n--- KOPSAVILKUMS PA KATEGORIJĀM ---")
+    summary = logic.sum_by_category(expenses)
+    
+    for cat, total in summary.items():
+        print(f"  {cat:<20} {total:>8.2f} EUR")
+    
+    print("-" * 30)
+    print(f"  {'KOPĀ:':<20} {logic.sum_total(expenses):>8.2f} EUR")
+
+def filter_menu(expenses):
+    """Lietotājs izvēlas mēnesi un redz filtrētu sarakstu."""
+    months = logic.get_available_months(expenses)
+    
+    if not months:
+        print("\nNav datu, ko filtrēt.")
+        return
+
+    print("\nPieejamie mēneši:")
+    for i, m in enumerate(months, 1):
+        print(f"  {i}) {m}")
+    
+    try:
+        izvele = int(input(f"Izvēlies mēnesi (1-{len(months)}): "))
+        selected_month_str = months[izvele - 1] # Piemēram "2025-03"
+        
+        # Sadalām "2025-03" uz gadu (2025) un mēnesi (3)
+        year = int(selected_month_str[:4])
+        month = int(selected_month_str[5:])
+        
+        filtered = logic.filter_by_month(expenses, year, month)
+        
+        print(f"\n--- IZDEVUMI PAR {selected_month_str} ---")
+        list_expenses(filtered) # Izmantojam jau esošo tabulas funkciju
+        
+    except (ValueError, IndexError):
+        print("❌ Nepareiza izvēle.")
+
+def delete_expense(expenses):
+    """Ļauj lietotājam izdzēst izdevumu pēc tā kārtas numura."""
+    if not expenses:
+        print("\nNav ko dzēst.")
+        return
+
+    # Sākumā parādām sarakstu, lai lietotājs redz numurus
+    print("\n--- DZĒST IZDEVUMU ---")
+    # Šeit svarīgi: mēs parādām sakārtotu sarakstu!
+    sorted_expenses = logic.sort_expenses_by_date(expenses)
+    
+    for i, exp in enumerate(sorted_expenses, 1):
+        print(f"{i}) {exp['date']} | {exp['amount']} EUR | {exp['description']}")
+
+    try:
+        izvele = int(input("\nIevadi numuru, kuru dzēst (vai 0, lai atceltu): "))
+        if izvele == 0: return
+        
+        # Izdzēšam izvēlēto elementu no saraksta
+        deleted = sorted_expenses.pop(izvele - 1)
+        
+        # Tā kā mēs izdzēsām no sakārtotā saraksta, mums jāsaglabā viss saraksts
+        storage.save_expenses(sorted_expenses)
+        print(f"✓ Izdzēsts: {deleted['description']}")
+        
+    except (ValueError, IndexError):
+        print("❌ Nepareizs numurs!")
 
 if __name__ == "__main__":
     main()
