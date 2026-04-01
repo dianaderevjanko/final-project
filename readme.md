@@ -1,15 +1,28 @@
-# Izdevumu izsekotājs (CLI)
+# Izdevumu izsekotājs
 
-Šis ir mans Python kursa noslēguma projekts. Programma palīdz reģistrēt izdevumus, filtrēt tos pa mēnešiem un eksportēt datus CSV formātā Excel analīzei.
+Komandrindas Python lietojums personīgo izdevumu uzskaitei un analīzei. Izveidots kā mācību kursa noslēguma darbs.
 
-## Kā lietot?
-1. Atver termināli un ieej projekta mapē.
-2. Palaid programmu: `python expense_tracker/app.py`
-3. Seko izvēlnes norādēm (1-7).
+## Uzstādīšana
 
-## Tehniskās iespējas
-- Datu glabāšana JSON formātā.
-- Ievades validācija (datums, summa).
-- Hronoloģiska datu kārtošana.
-- CSV eksports ar UTF-8-SIG kodējumu.
-- Izdevumu meklēšana (bonusa punkts)
+1. Lejupielādē kodu:
+   `git clone https://github.com/dianaderevjanko`
+2. Ieej mapē:
+   `cd final-project`
+3. Palaid programmu:
+   `python expense_tracker/app.py`
+
+## Lietošana
+
+Programma darbojas interaktīvā režīmā ar izvēlni:
+1) Pievienot izdevumu (ar datuma un summas pārbaudi)
+2) Parādīt visus izdevumus (hronoloģiskā secībā)
+3) Filtrēt pēc mēneša
+4) Kopsavilkums pa kategorijām
+5) Dzēst izdevumu
+6) Eksportēt CSV (Excel saderīgs formāts)
+7) Meklēt izdevumus
+8) Iziet
+
+## Autors
+
+Diāna Derevjanko — Programmēšanas pamati, 2026
