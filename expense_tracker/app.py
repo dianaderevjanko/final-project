@@ -4,6 +4,7 @@ import sys
 from datetime import date
 import storage
 import logic
+from export import export_to_csv
 
 # Definējam atļautās kategorijas
 CATEGORIES = ["Ēdiens", "Transports", "Izklaide", "Māja", "Veselība", "Iepirkšanās", "Cits"]
@@ -188,6 +189,21 @@ def delete_expense(expenses):
         
     except (ValueError, IndexError):
         print("❌ Nepareizs numurs!")
+
+def export_menu(expenses):
+    """Prasa lietotājam faila nosaukumu un eksportē datus."""
+    if not expenses:
+        print("\nNav datu, ko eksportēt.")
+        return
+
+    vards = input("\nIevadi faila nosaukumu (piem., tēriņi.csv) [izdevumi.csv]: ") or "izdevumi.csv"
+    
+    # Ja nosaukumā nav .csv, pieliekam to
+    if not vards.endswith(".csv"):
+        vards += ".csv"
+        
+    if export_to_csv(expenses, vards):
+        print(f"✓ Eksportēts: {len(expenses)} ieraksti -> {vards}")
 
 if __name__ == "__main__":
     main()
