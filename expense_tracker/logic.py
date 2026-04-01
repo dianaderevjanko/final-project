@@ -58,3 +58,8 @@ def sort_expenses_by_date(expenses):
     # Izmantojam Python iebūvēto sorted() funkciju. 
     # 'key' pasaka datoram, ka jāskatās tieši uz "date" lauku.
     return sorted(expenses, key=lambda x: x["date"])
+
+def search_expenses(expenses, query):   #Meklēšanas loģika
+    """Atgriež izdevumus, kuru aprakstā ir meklētais teksts."""
+    query = query.lower()
+    return [e for e in expenses if query in e["description"].lower()]

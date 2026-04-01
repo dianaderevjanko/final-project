@@ -12,3 +12,4 @@
 - Ievades validācija (datums, summa).
 - Hronoloģiska datu kārtošana.
 - CSV eksports ar UTF-8-SIG kodējumu.
+- Izdevumu meklēšana (bonusa punkts)

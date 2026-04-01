@@ -96,10 +96,11 @@ def main():
         print("3) Filtrēt pēc mēneša")     
         print("4) Kopsavilkums pa kategorijām") 
         print("5) Dzēst izdevumu")         
-        print("6) Eksportēt uz CSV")     
-        print("7) Iziet")
+        print("6) Eksportēt uz CSV")  
+        print("7) Meklēt izdevumus")
+        print("8) Iziet")
         
-        izvele = input("\nIzvēlies darbību (1-7): ")
+        izvele = input("\nIzvēlies darbību (1-8): ")
         
         if izvele == "1":
             add_expense(expenses)
@@ -114,6 +115,8 @@ def main():
         elif izvele == "6":               
             export_menu(expenses)
         elif izvele == "7":
+            search_menu(expenses)
+        elif izvele == "8":
             print("Uz redzēšanos!")
             break
         else:
@@ -204,6 +207,13 @@ def export_menu(expenses):
         
     if export_to_csv(expenses, vards):
         print(f"✓ Eksportēts: {len(expenses)} ieraksti -> {vards}")
+
+def search_menu(expenses):
+    query = input("\nIevadi meklējamo vārdu (piem., 'kafija'): ")
+    found = logic.search_expenses(expenses, query)
+    
+    print(f"\n--- MEKLĒŠANAS REZULTĀTI: '{query}' ---")
+    list_expenses(found) # izmantojam savu gatavo tabulas funkciju!
 
 if __name__ == "__main__":
     main()
